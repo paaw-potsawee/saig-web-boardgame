@@ -1,0 +1,29 @@
+:root{
+    --blue-dark:hsl(241, 96%, 68%);
+    --blue-ligth:#7E8EF1;
+    --grey:#d8dcd1;
+    --grey-light:#EEEEEE;   
+    --font-color:rgb(86, 86, 86);
+}
+/* @font-face {
+    font-family: itim;
+    src: url('https://fonts.googleapis.com/css2?family=Itim&display=swap');  
+} */
+@import url('https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap');
+*{
+    font-family: "Titillium Web", sans-serif;
+    font-weight: 200;
+    font-style: normal;
+}
+body{
+    margin:0;
+    padding:0;
+    margin-top:40px;
+    background-color:var(--grey-light);
+}
+
+@media (min-width: 600px){
+    body{
+      margin-top:60px;
+    }
+  }

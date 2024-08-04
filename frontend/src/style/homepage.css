@@ -1,0 +1,70 @@
+@import './root.css';
+
+.boardgame{
+  display:grid;
+  grid-template-columns: repeat(1,1fr);
+  gap:10px;
+  place-items: center;
+  box-sizing: border-box;
+}
+.box{
+  border:solid 1px var(--blue-ligth);
+  width:90vw;
+  aspect-ratio: 16/3;
+  border-radius: 10px;
+  padding:2vw;
+  box-sizing: border-box;
+  display:grid;
+  grid-template-areas:
+    'name name name name'
+    'price price price btn';
+  color:var(--font-color);
+  background-color:var(--grey);
+  box-shadow: 0px 0px 10px var(--grey) ;
+}
+.boargameName{
+  grid-area: name;
+  display:grid;
+  place-content: center;
+  font-weight: 700;
+}
+.price{
+  grid-area:price;
+  display:flex;
+  align-items:center;
+}
+.reserve{
+  grid-area:btn;
+  text-decoration:none;
+  width:100%;
+  border:solid var(--blue-ligth) 1px;
+  display:grid;
+  place-content: center;
+  border-radius:10px;
+  color:var(--blue-dark);
+}
+.reserve:hover{
+  background-color: var(--blue-dark);
+  color:var(--grey);
+}
+
+@media (min-width: 600px){
+  .boardgame{
+    grid-template-columns: repeat(2,1fr);
+  }
+  .box{
+    width:45vw;
+    aspect-ratio: 16/5;
+  }
+}
+
+@media (min-width: 1280px){
+  .boardgame{
+    grid-template-columns: repeat(3,1fr);
+  }
+  .box{
+    width:30vw;
+    aspect-ratio: 16/5;
+    max-width: 500px;
+  }
+}
