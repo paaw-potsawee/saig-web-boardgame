@@ -1,7 +1,10 @@
-import { useParams,Navigate } from "react-router-dom"
+import { useParams, Navigate } from "react-router-dom"
 import { useAuthContext } from '../../hooks/useAuthContext'
-import { useState, useEffect,useRef } from "react"
+import { useState, useEffect, useRef } from "react"
 import axios from 'axios'
+import '../../style/editBoardgame.css'
+import { MdDeleteOutline } from "react-icons/md";
+import { CiEdit } from "react-icons/ci";
 
 const EditBoardgame = () => {
     const { id } = useParams()
@@ -30,7 +33,7 @@ const EditBoardgame = () => {
 
         fetchData();
     }, [id, user.token]);
-    
+
 
     //edit boardgame name handle function
     const handleSubmitName = async (e) => {
@@ -39,15 +42,17 @@ const EditBoardgame = () => {
         try {
             const res = await axios.patch(`http://localhost:3000/homepage/${id}`,
                 {
-                    'boardgameName':boargameName.current.value
+                    'boardgameName': boargameName.current.value
                 },
-                { headers: {
-                    Authorization: `Bearer ${user.token}`,
-                    'Content-Type': 'application/json',
-                }}
+                {
+                    headers: {
+                        Authorization: `Bearer ${user.token}`,
+                        'Content-Type': 'application/json',
+                    }
+                }
             )
             console.log(res)
-            if(!!res){
+            if (!!res) {
                 window.alert('update name successfull')
                 boargameName.current.value = ''
             }
@@ -62,15 +67,17 @@ const EditBoardgame = () => {
         try {
             const res = await axios.patch(`http://localhost:3000/homepage/${id}`,
                 {
-                    'price':price.current.value
+                    'price': price.current.value
                 },
-                { headers: {
-                    Authorization: `Bearer ${user.token}`,
-                    'Content-Type': 'application/json',
-                }}
+                {
+                    headers: {
+                        Authorization: `Bearer ${user.token}`,
+                        'Content-Type': 'application/json',
+                    }
+                }
             )
             console.log(res)
-            if(!!res){
+            if (!!res) {
                 window.alert('update price successfull')
                 price.current.value = ''
             }
@@ -81,15 +88,17 @@ const EditBoardgame = () => {
     //delete boardgame handle function 
     const handleDelete = async () => {
         console.log('delete')
-        try{
-            const  res = await axios.delete(`http://localhost:3000/homepage/${id}`,
-               { headers: {
-                    Authorization: `Bearer ${user.token}`,
-                    'Content-Type': 'application/json',
-                }}
+        try {
+            const res = await axios.delete(`http://localhost:3000/homepage/${id}`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${user.token}`,
+                        'Content-Type': 'application/json',
+                    }
+                }
             )
             console.log(res)
-        }catch(error){
+        } catch (error) {
             console.log(error)
         }
     }
@@ -100,26 +109,28 @@ const EditBoardgame = () => {
     }
 
     return (
-        <div>
-            {boardgame.boardgameName}
-            <button onClick={handleDelete}>delete boardgame</button>
+        <div className="editBoardgame">
+            <h2>
+                {boardgame.boardgameName}
+            </h2>
+            <button onClick={handleDelete}><MdDeleteOutline/>delete</button>
             <form onSubmit={handleSubmitName}>
                 <label htmlFor="name">edit name</label>
-                <input 
-                type='text' 
-                id='name' 
-                ref={boargameName}
+                <input
+                    type='text'
+                    id='name'
+                    ref={boargameName}
                 />
-                <input type='submit' value='submit' />
+               <button type='submit' className="edit"><CiEdit/> change name</button> 
             </form>
             <form onSubmit={handleSubmitPrice}>
                 <label htmlFor='price'>edit price</label>
-                <input 
-                type='Number' 
-                id='price' 
-                ref={price}
+                <input
+                    type='number'
+                    id='price'
+                    ref={price}
                 />
-                <input type='submit' />
+                <button type='submit' className="edit"><CiEdit/> change price</button>
             </form>
         </div>
     )

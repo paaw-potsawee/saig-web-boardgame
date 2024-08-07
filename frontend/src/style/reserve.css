@@ -1,0 +1,43 @@
+@import './root.css';
+
+.Reserve{
+    display:flex;
+    align-items: center;
+    flex-direction:column;
+    width:100vw;
+    box-sizing:border-box;
+}
+.Reserve > h3{
+    font-weight: 500;
+}
+.Reserve label{
+    color:var(--blue-light);
+}
+.dropdown > select > option{
+    padding-left:15px;
+    width:100%;
+    height: 25px;
+}
+.dropdown select{
+    display:inline-block;
+    width:200px;
+    height: 30px;
+    border:solid var(--grey) 1px;
+    margin-bottom:10px;
+    border-radius: 5px;
+    padding-left:10px;
+}
+.dropdown select:focus{
+    outline:none;
+    border:solid var(--blue-dark) 1px;
+}
+.reserve-btn{
+    width:100px;
+    height: 30px;
+    border: 1px solid var(--grey);
+    border-radius: 15px;
+    color:var(--grey);
+    background-color:var(--blue-light);
+    margin-left:70%;
+    cursor:pointer;
+}

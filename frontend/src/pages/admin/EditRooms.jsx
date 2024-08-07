@@ -1,14 +1,20 @@
-import { useEffect,useState } from "react"
+import { useEffect, useState, useRef } from "react"
 import axios from 'axios'
+import { useAuthContext } from "../../hooks/useAuthContext"
+import '../../style/editRoom.css'
+import { CiEdit } from "react-icons/ci";
+import { MdDeleteOutline } from "react-icons/md";
 
 const EditRooms = () => {
-    const [rooms,setRooms] = useState()
-    const [isLoading,setIsLoading] = useState(true)
+    const [rooms, setRooms] = useState()
+    const [isLoading, setIsLoading] = useState(true)
+    const { user } = useAuthContext()
+    const newRoomName = useRef()
     useEffect(() => {
-        const fetch = async ()=> {
+        const fetch = async () => {
             try {
                 const res = await axios.get('http://localhost:3000/room/allRooms')
-                const { rooms:getRooms }  = res.data
+                const { rooms: getRooms } = res.data
                 setRooms(getRooms)
                 console.log(res.data)
             } catch (error) {
@@ -18,31 +24,99 @@ const EditRooms = () => {
             }
         }
         fetch()
-    },[])
+    }, [])
 
-    const handleDeleteRoom = (id) => {
-        console.log(id)
-        //axios.delete(`http://localhost:3000/room/${id}`)
+    const handleDeleteRoom = async (id) => {
+        try {
+            const res = await axios.delete(`http://localhost:3000/room/${id}`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${user.token}`,
+                        'Content-Type': 'application/json',
+                    }
+                }
+            )
+            console.log(res)
+            window.alert('room deleted')
+        } catch (error) {
+            console.log(error)
+            window.alert(error.response.data.error)
+        }
     }
-
-    if(isLoading) {
-        return(
+    const handleAddNewRoom = async (e) => {
+        e.preventDefault()
+        if (confirm(`are you sure you want to add new roomm name ${newRoomName.current.value}`)) {
+            try {
+                const res = await axios.post(`http://localhost:3000/room`,
+                    {
+                        'roomName': newRoomName.current.value
+                    },
+                    {
+                        headers: {
+                            Authorization: `Bearer ${user.token}`,
+                            'Content-Type': 'application/json',
+                        }
+                    }
+                )
+                console.log(res)
+                window.alert('new room added')
+            } catch (error) {
+                console.log(error)
+                window.alert(error.response.data.error)
+            }
+          } 
+    }
+    const handleUpdateRoom = async (id, roomName) => {
+        const newName = prompt('new room name', roomName)
+        try {
+            const res = await axios.patch(`http://localhost:3000/room/${id}`,
+                {
+                    'roomName': newName,
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${user.token}`,
+                        'Content-Type': 'application/json',
+                    }
+                }
+            )
+            console.log(res)
+            window.alert(`change '${roomName}' to '${newName}'`)
+        } catch (error) {
+            console.log(error.response.data)
+            window.alert(error.response.data.error)
+        }
+    }
+    if (isLoading) {
+        return (
             <div>
                 loading
             </div>
         )
     }
     return (
-        <div>
-            edit rooms
-            {rooms.map(room => {
-                return (
-                    <div key={room._id}>
-                        {room.roomName}
-                        <button onClick={() => handleDeleteRoom(room._id)}>edit room</button>
-                    </div>
-                )
-            })}
+        <div className="EditRooms">
+            <h2>edit rooms</h2>
+            <form onSubmit={handleAddNewRoom}>
+                <h4>add new room</h4>
+                <input type="text" ref={newRoomName} placeholder="new room name" required/>
+                <button type='submit' className='addRoom'>add new room</button>
+            </form>
+            <div>
+                {rooms.map(room => {
+                    return (
+                        <div key={room._id}>
+                            <div>room name : {room.roomName}</div>
+                            <button onClick={() => handleUpdateRoom(room._id, room.roomName)} className="editRoom">
+                                <CiEdit /> edit room name
+                            </button>
+                            <button onClick={() => handleDeleteRoom(room._id)} className="deleteRoom">
+                                <MdDeleteOutline />delete room
+                            </button>
+                        </div>
+                    )
+                })}
+            </div>
         </div>
     )
 }

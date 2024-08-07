@@ -1,0 +1,99 @@
+@import './root.css';
+
+.EditRooms{
+    width:100vw;
+    display:flex;
+    flex-direction:column;
+    align-items: center;
+}
+
+.EditRooms > form{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items:center;
+    width:clamp(300px,80vw,700px);
+    border:solid 1px var(--blue-light);
+    padding-bottom:30px;
+    border-radius: 15px;
+    background-color:var(--grey);
+    box-shadow: 0px 0px 10px var(--grey) ;
+}
+.EditRooms > form > h4{
+    font-weight: 400;
+}
+.EditRooms > form > input{
+    border:none;
+    background-color:rgba(0,0,0,0);
+    border-bottom:2px var(--blue-light) solid;
+    margin-bottom:10px;
+    width:80%;
+    padding-left:5px;
+}
+.EditRooms > form > input:focus{
+    outline: none;
+}
+.EditRooms > form > button{
+    background-color:var(--blue-light);
+    color:var(--grey-light);
+}
+.EditRooms h2{
+    font-weight: 500;
+}
+.EditRooms button{
+    padding:5px 5px;
+    height: 35px; 
+    text-decoration:none;
+    border-radius:5px;
+    font-weight: 400;
+    cursor:pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.EditRooms > div{
+    display:flex;
+    flex-direction:column;
+    align-items: center;
+}
+.EditRooms > div > div{
+    display: grid;
+    grid-template-areas: 
+    'name name'
+    'edit delete'
+    ;
+    place-items:center;
+    text-align: center;
+    height: 100px;
+    width:80vw;
+    margin-top:10px;
+    padding:10px;
+    border-bottom:1px black solid;
+}
+.EditRooms > div> div> div{
+    grid-area:name;
+    font-size:1.5rem;
+}
+.addRoom{
+    border:solid 1px var(--blue-dark);
+}
+.editRoom{
+    border:solid var(--blue-dark) 1px;
+    color:var(--blue-dark);
+    grid-area: edit;
+    width:clamp(120px,20vw,300px);
+}
+.editRoom:hover{
+    background-color: var(--blue-dark);
+    color:var(--grey);
+}
+.deleteRoom{
+    border:solid var(--error-color) 1px;
+    color:var(--error-color);
+    grid-area: delete;
+    width:clamp(120px,20vw,300px);
+}
+.deleteRoom:hover{
+    background-color:var(--error-color);
+    color:var(--grey);
+}

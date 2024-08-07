@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import HandleReserve from './HandleReserve';
 
-const DateTimeDropdown = ({ reserveGame, rooms,idGame }) => {
+const DateTimeDropdown = ({ reserveGame, rooms, idGame }) => {
   const [dateOption, setDateOption] = useState([])
   const [selectedDate, setSelectedDate] = useState('')
   const [timeOption, setTimeOption] = useState([])
   const [selectedTime, setSelectedTime] = useState('')
-  const [roomOptions,setRoomOptions] = useState([])
-  const [selectedRoom,setSelectedRoom] = useState('')
+  const [roomOptions, setRoomOptions] = useState([])
+  const [selectedRoom, setSelectedRoom] = useState('')
 
   const generateDateOptions = () => {
     const options = [];
@@ -78,12 +78,12 @@ const DateTimeDropdown = ({ reserveGame, rooms,idGame }) => {
           const resMonth = parseInt(reserve.slice(5, 7));
           const resDate = parseInt(reserve.slice(8, 10));
           const resHour = reserve.slice(11, 13);
-    
+
           if (
             date.getFullYear() == resYear &&
-            (date.getMonth() + 1) == resMonth && 
+            (date.getMonth() + 1) == resMonth &&
             date.getDate() == resDate &&
-            hr == resHour 
+            hr == resHour
           ) {
             console.log('heheh');
             return true
@@ -98,25 +98,27 @@ const DateTimeDropdown = ({ reserveGame, rooms,idGame }) => {
   }, [selectedTime])
   useEffect(() => {
     const a = new Date(selectedDate)
-    a.setHours(selectedTime.slice(0,2),0,0)
+    a.setHours(selectedTime.slice(0, 2), 0, 0)
     console.log(a)
     console.log(selectedRoom)
-  },[selectedRoom])
+  }, [selectedRoom])
   return (
-    <div>
-      <label htmlFor='date'>select date: </label>
-      <select id="date" onChange={(e) => setSelectedDate(e.target.value)} value={selectedDate}>
-        <option value=''>---select date---</option>
-        {dateOption.map((date, i) => {
-          return (
-            <option key={i} value={date.toDateString()}>
-              {date.toDateString()}
-            </option>
-          )
-        })}
-      </select>
-      {!!selectedDate && <div>
-        <label htmlFor="time">select time: </label>
+    <div className='dropdown'>
+      <div className='selecttime'>
+        <label htmlFor='date'>select date -{'>'} </label>
+        <select id="date" onChange={(e) => setSelectedDate(e.target.value)} value={selectedDate}>
+          <option value=''>---select date---</option>
+          {dateOption.map((date, i) => {
+            return (
+              <option key={i} value={date.toDateString()}>
+                {date.toDateString()}
+              </option>
+            )
+          })}
+        </select>
+      </div>
+      {!!selectedDate && <div className='selectday'>
+        <label htmlFor="time">select time -{'>'} </label>
         <select id="time" value={selectedTime} onChange={(e) => setSelectedTime(e.target.value)}>
           <option value="">---select time---</option>
           {timeOption.map((time, i) => {
@@ -128,12 +130,12 @@ const DateTimeDropdown = ({ reserveGame, rooms,idGame }) => {
           })}
         </select>
       </div>}
-      {!!selectedTime && (roomOptions.length > 0  ? <div>
-        <label htmlFor='room'>select room:</label>
+      {!!selectedTime && (roomOptions.length > 0 ? <div className='selectroom'>
+        <label htmlFor='room'>select room -{'>'}</label>
         <select id='room' value={selectedRoom} onChange={(e) => setSelectedRoom(e.target.value)}>
           <option value=''>---select room---</option>
           {roomOptions.map(room => {
-            return(
+            return (
               <option value={room._id} key={room.roomName}>
                 {room.roomName}
               </option>
@@ -141,9 +143,9 @@ const DateTimeDropdown = ({ reserveGame, rooms,idGame }) => {
           })}
         </select>
       </div> :
-      <div>no room available</div>
-    )}
-    {!!selectedRoom && <div>
+        <div>no room available</div>
+      )}
+      {!!selectedRoom && <div>
         <HandleReserve date={selectedDate} time={selectedTime} room={selectedRoom} idGame={idGame} />
       </div>}
     </div>

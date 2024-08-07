@@ -1,0 +1,51 @@
+@import './root.css';
+
+.profile{
+    text-align: center;
+}
+.profile h2{
+    font-weight: 500;
+    color:var(--font-color)
+}
+.reservation{
+    width:100vw;
+    height: 100vh;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
+.reservation h4{
+    font-weight: 500;
+}
+.upcoming{
+    border:solid 1px var(--blue-dark);
+    border-radius:10px;
+    background-color:var(--grey);
+    width:90vw;
+    height: auto;
+    padding:10px;
+    min-height: 50px;
+    box-sizing:border-box;
+    box-shadow: 1px 1px 2px 2px rgba(0, 0, 255, .3);
+    text-align: center;
+}
+.upcoming > thead > tr{
+    color:white;
+    background-color:var(--blue-light);
+}
+.upcoming tr:nth-child(even){
+    background-color:var(--blue-light);
+    color:white;
+}
+.history{
+    border:solid 1px var(--blue-dark);
+    border-radius:10px;
+    background-color:var(--grey);
+    width:90vw;
+    height: auto;
+    padding:10px;
+    text-align: center;
+    min-height: 50px;
+    box-sizing:border-box;
+    box-shadow: 1px 1px 2px 2px rgba(0, 0, 255, .2);
+}

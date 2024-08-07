@@ -1,9 +1,9 @@
-import { Link,useLocation } from 'react-router-dom';
+import { Link,useLocation,useNavigate } from 'react-router-dom';
 import '../style/Navbar.css';
 import logo from '../assets/logo-pbg.png'
 import { useAuthContext } from '../hooks/useAuthContext';
 import { useLogout } from '../hooks/useLogout'
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useMediaQuery } from 'react-responsive'
 //import icon
 import { CiSearch } from "react-icons/ci";
@@ -16,8 +16,12 @@ const Navbar = () => {
     const { user } = useAuthContext()
     const { Logout } = useLogout()
     const [searchbar, setSearchbar] = useState('searchbar hidden')
+    const searchInfo = useRef()
+    const [homePath,setHomePath] = useState('')
+    const [profilePath,setProfilePath] = useState('')
     const [hidden, setHidden] = useState('hidden')
-    const minWidth = useMediaQuery({ minWidth: 600 })
+    const [styleSearch,setStyleSearch]= useState({display:'none',})
+    const minWidth = useMediaQuery({ minWidth: 750 })
     const location = useLocation()
 
     const handleLogout = () => {
@@ -26,17 +30,35 @@ const Navbar = () => {
     const handleToggle = () => {
         setSearchbar(searchbar.includes('hidden') && !minWidth ? 'searchbar' : 'searchbar hidden')
         setHidden(hidden.includes('hidden') && !minWidth ? 'list' : 'hidden')
+        setStyleSearch(styleSearch.display == 'none' ? {display:'grid',}:{display:"none",})
     }
     useEffect(() => {
         setSearchbar(window.innerWidth>600 ?'searchbar' : 'searchbar hidden')
         setHidden(window.innerWidth>600 ? 'list':'hidden')
+        setStyleSearch(window.innerWidth>600 ? {display:'grid',}:{display:'none',})
     },[window.innerWidth])
     useEffect(() => {
-        if(window.innerWidth < 600){
+        if(window.innerWidth < 750){
             setSearchbar('searchbar hidden')
             setHidden('hidden')
+            setStyleSearch({display:'none',})
         }
+        searchInfo.current.value = ''
+        if(location.pathname == '/'){
+            setHomePath('home')
+        }else{setHomePath('')}
+        if(location.pathname == '/profile'){
+            setProfilePath('profile')
+        }else{setProfilePath('')}
+        console.log(location.pathname)
     },[location])
+    const navigation = useNavigate()
+    const handleSearch = (e) => {
+        e.preventDefault()
+        if(searchInfo.current.value != ''){
+            navigation(`/?search=${searchInfo.current.value.trim().split(" ").join("")}`)
+        }
+    }
     return (
         <>
             <nav>
@@ -46,18 +68,23 @@ const Navbar = () => {
                     </Link>
                     {!minWidth && <div className='show' onClick={handleToggle}>{<IoReorderThreeOutline />}</div>}
                 </div>
-                <div className={searchbar}>
-                    <input type="text" className='search' placeholder='search' />
+                <form className={searchbar} onSubmit={handleSearch} style={styleSearch}>
+                    <input 
+                        type="text" 
+                        className='search' 
+                        placeholder='search' 
+                        ref={searchInfo}
+                    />
                     <button type="submit" className="btn">{<CiSearch />}</button>
-                </div>
-                <Link className={`home ${hidden}`} to='/'>
+                </form>
+                <Link className={`${homePath} ${hidden}`} to='/'>
                     <TiHomeOutline className='icon'/>home
                 </Link>
                 <Link className={`contact ${hidden}`} to='/'>
                     <MdOutlineContactPhone className='icon'/>contact
                 </Link>
                 {!!user ?
-                    <Link to="/profile" className={`profile ${hidden}`}>
+                    <Link to="/profile" className={`${profilePath} ${hidden}`}>
                         <IoIosContact className='icon'/>Profile
                     </Link>
                     :

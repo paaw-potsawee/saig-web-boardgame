@@ -1,0 +1,45 @@
+@import './root.css';
+
+.addBoardgame{
+    width:100vw;
+    display:flex;
+    justify-content: center;
+}
+.addBoardgame > form {
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items:center;
+    width:clamp(300px,80vw,700px);
+    border:solid 1px var(--blue-light);
+    padding-bottom:30px;
+    border-radius: 15px;
+    background-color:var(--grey);
+    box-shadow: 0px 0px 10px var(--grey) ;
+}
+.addBoardgame > form > input[type='text'],input[type='number']{
+    border:none;
+    background-color:rgba(0,0,0,0);
+    border-bottom:2px var(--blue-light) solid;
+    margin-bottom:10px;
+    width:80%;
+    padding-left:5px;
+}
+.addBoardgame > form > input:focus{
+    outline:none;   
+}
+.addBoardgame > form > input[type='submit']{
+    background-color:var(--blue-light);
+    color:var(--grey-light);
+    border:solid 1px var(--blue-dark);
+    padding:5px 15px;
+    border-radius:5px;
+    font-weight: 400;
+    cursor:pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.addBoardgame label{
+    margin-bottom:10px;
+}

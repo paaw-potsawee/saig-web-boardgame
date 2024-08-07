@@ -1,6 +1,7 @@
 import { useRef } from 'react'
 import axios from 'axios'
 import { useAuthContext } from '../../hooks/useAuthContext'
+import '../../style/addBoardgame.css'
 
 const AddBoardgame = () => {
     const boardgameName = useRef()
@@ -23,6 +24,7 @@ const AddBoardgame = () => {
                     }
                 })
             console.log(res)
+            window.alert('succesfully add new boardgame')
             boardgameName.current.value = ''
             price.current.value = ''
         } catch (error) {
@@ -31,15 +33,16 @@ const AddBoardgame = () => {
     }
 
     return (
-        <div>
-            add boardgame
+        <div className='addBoardgame'>
             <form onSubmit={handleSubmit}>
-                <label htmlFor="boardgamename">boardgame name: </label>
+                <h2>add boardgame</h2>
+                <label htmlFor="boardgamename">boardgame name</label>
                 <input
                     type='text'
                     id='boardgamename'
-                    ref={boardgameName} />
-                <label htmlFor="price">price(bath/hour):</label>
+                    ref={boardgameName}
+                     />
+                <label htmlFor="price">price(bath/hour)</label>
                 <input
                     id='price'
                     type='number'

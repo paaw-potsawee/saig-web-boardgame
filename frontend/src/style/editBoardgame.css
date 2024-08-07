@@ -1,0 +1,58 @@
+@import './root.css';
+
+.editBoardgame{
+    width:100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.editBoardgame h2{
+    font-weight: 500;
+}
+.editBoardgame button{
+    border:solid var(--error-color) 1px;
+    color:var(--error-color);
+    width:clamp(120px,20vw,300px);
+    padding:5px 5px;
+    height: 35px; 
+    text-decoration:none;
+    border-radius:5px;
+    font-weight: 400;
+    cursor:pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.editBoardgame button:hover{
+    background-color:var(--error-color);
+    color:var(--grey);
+}
+.editBoardgame form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width:clamp(300px,80%,700px);
+    padding:30px 15px;
+}
+.editBoardgame form > label{
+    margin-bottom:10px;
+}
+.editBoardgame input[type='text'],input[type='number']{
+    border:none;
+    background-color:rgba(0,0,0,0);
+    border:2px var(--blue-light) solid;
+    margin-bottom:10px;
+    width:80%;
+    padding:10px;
+}
+.editBoardgame input[type='text'],input[type='number']{
+    outline: none;
+}
+.editBoardgame .edit{
+    border:solid var(--blue-light) 1px;
+    color:var(--blue-dark);
+}
+.editBoardgame .edit:hover{
+    background-color: var(--blue-dark);
+    color:var(--grey);
+}

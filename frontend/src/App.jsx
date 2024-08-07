@@ -7,7 +7,7 @@ import Profile from './pages/Profile'
 import Login from './pages/Login'
 import Reserve from './pages/reserve'
 import Signup from './pages/Signup'
-import EditBoardgame from './pages/admin/EditBoardgmae.jsx'
+import EditBoardgame from './pages/admin/EditBoardgame.jsx'
 import EditRooms from './pages/admin/EditRooms.jsx'
 import AddBoardgame from './pages/admin/AddBoardgame.jsx'
 
