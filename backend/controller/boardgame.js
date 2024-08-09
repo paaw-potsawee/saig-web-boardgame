@@ -10,6 +10,9 @@ const getAllBoardgames = async (req, res) => {
 //get one boardgame
 const getBoardgame = async (req, res) => {
   const { id } = req.params;
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).json({ error: "no such a board game" });
+  }
   const boardgame = await Boardgame.findById(id);
 
   if (!boardgame) {

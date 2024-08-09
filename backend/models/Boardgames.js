@@ -13,8 +13,6 @@ const boardgameSchema = new Schema({
         type:Number,
         required:true,
     },
-//img
-//reserved time 
     reservation:{
         type:[Date],
     },
