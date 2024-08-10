@@ -1,4 +1,4 @@
-import { Link,useLocation,useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import '../style/Navbar.css';
 import logo from '../assets/logo-pbg.png'
 import { useAuthContext } from '../hooks/useAuthContext';
@@ -11,16 +11,19 @@ import { IoReorderThreeOutline } from "react-icons/io5";
 import { TiHomeOutline } from "react-icons/ti";
 import { IoIosContact } from "react-icons/io";
 import { MdOutlineContactPhone } from "react-icons/md"
+//import  js-cookie
+import Cookies from 'js-cookie'
 
 const Navbar = () => {
     const { user } = useAuthContext()
     const { Logout } = useLogout()
     const [searchbar, setSearchbar] = useState('searchbar hidden')
     const searchInfo = useRef()
-    const [homePath,setHomePath] = useState('')
-    const [profilePath,setProfilePath] = useState('')
+    const [homePath, setHomePath] = useState('')
+    const [profilePath, setProfilePath] = useState('')
     const [hidden, setHidden] = useState('hidden')
-    const [styleSearch,setStyleSearch]= useState({display:'none',})
+    const [isAcceptedCookie,setIsAcceptedCookie] = useState('flex')
+    const [styleSearch, setStyleSearch] = useState({ display: 'none', })
     const minWidth = useMediaQuery({ minWidth: 750 })
     const location = useLocation()
 
@@ -30,34 +33,45 @@ const Navbar = () => {
     const handleToggle = () => {
         setSearchbar(searchbar.includes('hidden') && !minWidth ? 'searchbar' : 'searchbar hidden')
         setHidden(hidden.includes('hidden') && !minWidth ? 'list' : 'hidden')
-        setStyleSearch(styleSearch.display == 'none' ? {display:'grid',}:{display:"none",})
+        setStyleSearch(styleSearch.display == 'none' ? { display: 'grid', } : { display: "none", })
     }
+    //hide and show nav bar
     useEffect(() => {
-        setSearchbar(window.innerWidth>600 ?'searchbar' : 'searchbar hidden')
-        setHidden(window.innerWidth>600 ? 'list':'hidden')
-        setStyleSearch(window.innerWidth>600 ? {display:'grid',}:{display:'none',})
-    },[window.innerWidth])
+        setSearchbar(window.innerWidth > 750 ? 'searchbar' : 'searchbar hidden')
+        setHidden(window.innerWidth > 750 ? 'list' : 'hidden')
+        setStyleSearch(window.innerWidth > 750 ? { display: 'grid', } : { display: 'none', })
+    }, [window.innerWidth])
     useEffect(() => {
-        if(window.innerWidth < 750){
+        if (window.innerWidth < 750) {
             setSearchbar('searchbar hidden')
             setHidden('hidden')
-            setStyleSearch({display:'none',})
+            setStyleSearch({ display: 'none', })
         }
         searchInfo.current.value = ''
-        if(location.pathname == '/'){
+        if (location.pathname == '/') {
             setHomePath('home')
-        }else{setHomePath('')}
-        if(location.pathname == '/profile'){
+        } else { setHomePath('') }
+        if (location.pathname == '/profile') {
             setProfilePath('profile')
-        }else{setProfilePath('')}
-        console.log(location.pathname)
-    },[location])
+        } else { setProfilePath('') }
+    }, [location])
     const navigation = useNavigate()
     const handleSearch = (e) => {
         e.preventDefault()
-        if(searchInfo.current.value != ''){
+        if (searchInfo.current.value != '') {
             navigation(`/?search=${searchInfo.current.value.trim().split(" ").join("")}`)
         }
+    }
+    //on first time load
+    useEffect(() => {
+        const accept = Cookies.get('cookie')
+        if(accept == 'accept'){
+            setIsAcceptedCookie('none')
+        }
+    },[])
+    const handleCookieAccept =  () => {
+        Cookies.set('cookie','accept',{ expires: 30 })
+        setIsAcceptedCookie('none')
     }
     return (
         <>
@@ -69,23 +83,23 @@ const Navbar = () => {
                     {!minWidth && <div className='show' onClick={handleToggle}>{<IoReorderThreeOutline />}</div>}
                 </div>
                 <form className={searchbar} onSubmit={handleSearch} style={styleSearch}>
-                    <input 
-                        type="text" 
-                        className='search' 
-                        placeholder='search' 
+                    <input
+                        type="text"
+                        className='search'
+                        placeholder='search'
                         ref={searchInfo}
                     />
                     <button type="submit" className="btn">{<CiSearch />}</button>
                 </form>
                 <Link className={`${homePath} ${hidden}`} to='/'>
-                    <TiHomeOutline className='icon'/>home
+                    <TiHomeOutline className='icon' />home
                 </Link>
                 <Link className={`contact ${hidden}`} to='/'>
-                    <MdOutlineContactPhone className='icon'/>contact
+                    <MdOutlineContactPhone className='icon' />contact
                 </Link>
                 {!!user ?
                     <Link to="/profile" className={`${profilePath} ${hidden}`}>
-                        <IoIosContact className='icon'/>Profile
+                        <IoIosContact className='icon' />Profile
                     </Link>
                     :
                     <Link to="/login" className={`login ${hidden}`}>
@@ -97,7 +111,14 @@ const Navbar = () => {
                     <Link to='/signup' className={`signup ${hidden}`}>Sign up</Link>
                 }
             </nav>
-            <hr/>
+            <hr />
+            <div className='cookie-container' style={ {display:`${isAcceptedCookie}`} }>
+                <p>This website uses cookies to ensure you get the best experience on our website.</p>
+                <div>
+                    <button className='accept' onClick={() => handleCookieAccept()}>ACCEPT</button>
+                    <button className='decline' onClick={() => setIsAcceptedCookie('none')}>DECLINE</button>
+                </div>
+            </div>
         </>
     )
 

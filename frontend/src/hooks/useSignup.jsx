@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useAuthContext } from './useAuthContext'
 import axios from 'axios'
+import Cookies from 'js-cookie'
 
 export const useSignup = () => {
     const [error, setError] = useState(null)
@@ -17,7 +18,11 @@ export const useSignup = () => {
         .then(res => {
             //save user to local storage
             const { username, token,roll } = res.data
-            localStorage.setItem('user',JSON.stringify({username,token,roll}))
+            const accept = Cookies.get('cookie')
+            if(accept == 'accept'){
+                Cookies.set('user',JSON.stringify({username,token,roll}),{ expires:30 })
+            }
+            // localStorage.setItem('user',JSON.stringify({username,token,roll}))
 
             //update AuthContext
             console.log(res.data)

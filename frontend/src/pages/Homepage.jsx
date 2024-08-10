@@ -63,7 +63,7 @@ function Homepage() {
                 </div>}
             </div> :
                 <div className='boardgame'>
-                    {listOfBoardgame.map((value) => {
+                    {listOfBoardgame.length>0 ? listOfBoardgame.map((value) => {
                         return (
                             <div key={value._id} className="box">
                                 <div className="boargameName">
@@ -78,7 +78,7 @@ function Homepage() {
                                 }
                             </div>
                         )
-                    })}
+                    }):<div>no boardgame currently available</div>}
                 </div>
             }
 
