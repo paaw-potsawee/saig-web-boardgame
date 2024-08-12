@@ -4,6 +4,8 @@ import { useParams } from 'react-router-dom'
 import { useAuthContext } from '../hooks/useAuthContext'
 import DateTimeDropdown from '../components/DateTimeDropdown'
 import '../style/reserve.css'
+import { HiOutlineQuestionMarkCircle } from "react-icons/hi";
+import instruction from '../assets/instruction.png'
 
 const Reserve = () => {
   const { id } = useParams();
@@ -12,6 +14,7 @@ const Reserve = () => {
   const [rooms, setRooms] = useState({})
   const [isLoading, setIsLoading] = useState(true)
   const [isLoadingRooms, setIsLoadingRooms] = useState(true)
+  const [showInstruction,setShowInstruction] = useState(false)
   const { user } = useAuthContext()
 
   //fecth baordgame
@@ -64,7 +67,14 @@ const Reserve = () => {
 
   return (
     <div className='Reserve'>
+      <button onClick={() => setShowInstruction(!showInstruction)} className='show-instruction'>
+        <HiOutlineQuestionMarkCircle style={{width:'20',height:'20'}}/>
+      </button>
       <h3>{boardgame.boardgameName}</h3>
+      <div className='instruction' style={{ display:showInstruction ? 'flex' : 'none'}}>
+        <button onClick={() => setShowInstruction(!showInstruction)}>X</button>
+        <img src={instruction} alt='instrction' />
+      </div>
       <DateTimeDropdown reserveGame={reserveGame} rooms={rooms.rooms} idGame={id} />
     </div>
   )

@@ -126,6 +126,7 @@ const EditBoardgame = () => {
             <form onSubmit={handleSubmitPrice}>
                 <label htmlFor='price'>edit price</label>
                 <input
+                    className="editprice"
                     type='number'
                     id='price'
                     ref={price}

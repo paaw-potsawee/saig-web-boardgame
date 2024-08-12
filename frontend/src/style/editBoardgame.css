@@ -37,15 +37,15 @@
 .editBoardgame form > label{
     margin-bottom:10px;
 }
-.editBoardgame input[type='text'],input[type='number']{
+.editBoardgame input{
     border:none;
     background-color:rgba(0,0,0,0);
-    border:2px var(--blue-light) solid;
+    border-bottom:2px var(--blue-light) solid;
     margin-bottom:10px;
     width:80%;
     padding:10px;
 }
-.editBoardgame input[type='text'],input[type='number']{
+.editBoardgame input[type='text'],input[type='number']:focus{
     outline: none;
 }
 .editBoardgame .edit{

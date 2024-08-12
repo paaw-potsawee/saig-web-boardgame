@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useLogin } from '../hooks/useLogin.jsx'
 import '../style/login.css'
+import logo from '../assets/logo.png'
 
 const Login = () => {
     const [username, setUsername] = useState('')
@@ -15,6 +16,7 @@ const Login = () => {
 
     return (
         <form onSubmit={handleSubmit} className='login-form'>
+            <img src={logo} alt='logo' />
             <h3 className='welcome'>Welcome back!</h3>
             {/* <label htmlFor='username'>Username</label> */}
             <input
