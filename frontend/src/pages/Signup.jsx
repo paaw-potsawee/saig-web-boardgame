@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { useSignup } from '../hooks/useSignup'
 import '../style/login.css'
 import logo from '../assets/logo.png'
+import { toast } from 'react-toastify'
 
 const Signup = () => {
     const [username, setUsername] = useState('')
@@ -19,6 +20,7 @@ const Signup = () => {
             return
         }
         await Signup(username,password)
+        toast.success(`welcome to our community ${username}`)
     }
 
     return (

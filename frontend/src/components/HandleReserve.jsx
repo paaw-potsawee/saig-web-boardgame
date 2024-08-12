@@ -1,6 +1,7 @@
 import {  useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { useAuthContext } from '../hooks/useAuthContext'
+import { toast } from 'react-toastify'
 
 const HandleReserve = ({ date, time, room, idGame }) => {
     const { user } = useAuthContext()
@@ -20,7 +21,8 @@ const HandleReserve = ({ date, time, room, idGame }) => {
                     }
                 })
             console.log(res)
-            alert(`successfully reserve ${res.data.reserveGame.boardgameName} at ${b.slice(0,10)} ${b.slice(11,19)}`)
+            // alert(`successfully reserve ${res.data.reserveGame.boardgameName} at ${b.slice(0,10)} ${b.slice(11,19)}`)
+            toast.success(`successfully reserve ${res.data.reserveGame.boardgameName} at ${b.slice(0,10)} ${b.slice(11,19)}`)
             navigate(`/`)
         } catch (error) {
             console.log(error)

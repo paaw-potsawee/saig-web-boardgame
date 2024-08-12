@@ -4,6 +4,7 @@ import { useAuthContext } from "../../hooks/useAuthContext"
 import '../../style/editRoom.css'
 import { CiEdit } from "react-icons/ci";
 import { MdDeleteOutline } from "react-icons/md";
+import { toast } from 'react-toastify'
 
 const EditRooms = () => {
     const [rooms, setRooms] = useState()
@@ -37,10 +38,12 @@ const EditRooms = () => {
                 }
             )
             console.log(res)
-            window.alert('room deleted')
+            // window.alert('room deleted')
+            toast.success('room deleted')
         } catch (error) {
             console.log(error)
-            window.alert(error.response.data.error)
+            // window.alert(error.response.data.error)
+            toast.error(error.response.data.error)
         }
     }
     const handleAddNewRoom = async (e) => {
@@ -59,32 +62,39 @@ const EditRooms = () => {
                     }
                 )
                 console.log(res)
-                window.alert('new room added')
+                // window.alert('new room added')
+                toast.success('new room added')
+                newRoomName.current.value = ''
             } catch (error) {
                 console.log(error)
-                window.alert(error.response.data.error)
+                // window.alert(error.response.data.error)
+                toast.error(error.response.data.error)
             }
           } 
     }
     const handleUpdateRoom = async (id, roomName) => {
         const newName = prompt('new room name', roomName)
-        try {
-            const res = await axios.patch(`http://localhost:3000/room/${id}`,
-                {
-                    'roomName': newName,
-                },
-                {
-                    headers: {
-                        Authorization: `Bearer ${user.token}`,
-                        'Content-Type': 'application/json',
+        if(newName != null){
+            try {
+                const res = await axios.patch(`http://localhost:3000/room/${id}`,
+                    {
+                        'roomName': newName,
+                    },
+                    {
+                        headers: {
+                            Authorization: `Bearer ${user.token}`,
+                            'Content-Type': 'application/json',
+                        }
                     }
-                }
-            )
-            console.log(res)
-            window.alert(`change '${roomName}' to '${newName}'`)
-        } catch (error) {
-            console.log(error.response.data)
-            window.alert(error.response.data.error)
+                )
+                console.log(res)
+                // window.alert(`change '${roomName}' to '${newName}'`)
+                toast.success(`change '${roomName}' to '${newName}'`)
+            } catch (error) {
+                console.log(error.response.data)
+                // window.alert(error.response.data.error)
+                toast.error(error.response.data.error)
+            }
         }
     }
     if (isLoading) {

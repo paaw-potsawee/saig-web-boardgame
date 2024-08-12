@@ -13,6 +13,7 @@ import { IoIosContact } from "react-icons/io";
 import { MdOutlineContactPhone } from "react-icons/md"
 //import  js-cookie
 import Cookies from 'js-cookie'
+import { toast } from 'react-toastify'
 
 const Navbar = () => {
     const { user } = useAuthContext()
@@ -29,6 +30,7 @@ const Navbar = () => {
 
     const handleLogout = () => {
         Logout()
+        toast.success('successfully log out')
     }
     const handleToggle = () => {
         setSearchbar(searchbar.includes('hidden') && !minWidth ? 'searchbar' : 'searchbar hidden')

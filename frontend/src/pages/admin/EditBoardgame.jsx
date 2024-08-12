@@ -5,6 +5,7 @@ import axios from 'axios'
 import '../../style/editBoardgame.css'
 import { MdDeleteOutline } from "react-icons/md";
 import { CiEdit } from "react-icons/ci";
+import { toast } from 'react-toastify'
 
 const EditBoardgame = () => {
     const { id } = useParams()
@@ -53,7 +54,8 @@ const EditBoardgame = () => {
             )
             console.log(res)
             if (!!res) {
-                window.alert('update name successfull')
+                // window.alert('update name successfull')
+                toast.success('successfully update name')
                 boargameName.current.value = ''
             }
         } catch (error) {
@@ -78,7 +80,8 @@ const EditBoardgame = () => {
             )
             console.log(res)
             if (!!res) {
-                window.alert('update price successfull')
+                // window.alert('update price successfull')
+                toast.success('successfully update price')
                 price.current.value = ''
             }
         } catch (error) {
@@ -87,7 +90,6 @@ const EditBoardgame = () => {
     }
     //delete boardgame handle function 
     const handleDelete = async () => {
-        console.log('delete')
         try {
             const res = await axios.delete(`http://localhost:3000/homepage/${id}`,
                 {
@@ -98,6 +100,7 @@ const EditBoardgame = () => {
                 }
             )
             console.log(res)
+            toast.success('boargame deleted')
         } catch (error) {
             console.log(error)
         }

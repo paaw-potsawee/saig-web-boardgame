@@ -2,6 +2,7 @@ import { useRef } from 'react'
 import axios from 'axios'
 import { useAuthContext } from '../../hooks/useAuthContext'
 import '../../style/addBoardgame.css'
+import { toast } from 'react-toastify'
 
 const AddBoardgame = () => {
     const boardgameName = useRef()
@@ -24,7 +25,8 @@ const AddBoardgame = () => {
                     }
                 })
             console.log(res)
-            window.alert('succesfully add new boardgame')
+            // window.alert('succesfully add new boardgame')
+            toast.success('successfully add new boardgame')
             boardgameName.current.value = ''
             price.current.value = ''
         } catch (error) {

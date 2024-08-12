@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { useLogin } from '../hooks/useLogin.jsx'
 import '../style/login.css'
 import logo from '../assets/logo.png'
+import { toast }  from 'react-toastify'
 
 const Login = () => {
     const [username, setUsername] = useState('')
@@ -12,6 +13,7 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         await Login(username, password)
+        toast.success(`welcome ${username} back`)
     }
 
     return (
