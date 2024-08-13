@@ -2,6 +2,7 @@
 .homepage{
   width:100vw;
   box-sizing:border-box;
+  min-height: calc(100vh - 80px);
 }
 .boardgame{
   display:grid;

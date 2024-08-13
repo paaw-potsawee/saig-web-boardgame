@@ -75,6 +75,9 @@
   .profile{
     color:var(--blue-dark);
   }
+  .contact{
+    color:var(--blue-dark);
+  }
   .logout{
     width:80%;
     height: 25px;

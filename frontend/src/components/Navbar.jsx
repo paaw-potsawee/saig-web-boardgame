@@ -22,11 +22,13 @@ const Navbar = () => {
     const searchInfo = useRef()
     const [homePath, setHomePath] = useState('')
     const [profilePath, setProfilePath] = useState('')
+    const [contact, setContact] = useState('')
     const [hidden, setHidden] = useState('hidden')
     const [isAcceptedCookie,setIsAcceptedCookie] = useState('flex')
     const [styleSearch, setStyleSearch] = useState({ display: 'none', })
     const minWidth = useMediaQuery({ minWidth: 750 })
     const location = useLocation()
+    const navigation = useNavigate()
 
     const handleLogout = () => {
         Logout()
@@ -57,7 +59,7 @@ const Navbar = () => {
             setProfilePath('profile')
         } else { setProfilePath('') }
     }, [location])
-    const navigation = useNavigate()
+
     const handleSearch = (e) => {
         e.preventDefault()
         if (searchInfo.current.value != '') {
@@ -96,7 +98,7 @@ const Navbar = () => {
                 <Link className={`${homePath} ${hidden}`} to='/'>
                     <TiHomeOutline className='icon' />home
                 </Link>
-                <Link className={`contact ${hidden}`} to='/'>
+                <Link className={`${contact} ${hidden}`} to='/#test' smooth='true'>
                     <MdOutlineContactPhone className='icon' />contact
                 </Link>
                 {!!user ?

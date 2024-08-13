@@ -35,23 +35,27 @@ const newBoardgame = async (req, res) => {
 
 //update boardgame
 const updateBoardgame = async (req, res) => {
-  const { id } = req.params;
+  try {
+    const { id } = req.params;
 
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(404).json({ error: "no such a board game" });
-  }
-
-  const boardgame = await Boardgame.findByIdAndUpdate(
-    { _id: id },
-    {
-      ...req.body,
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(404).json({ error: "no such a board game" });
     }
-  );
-
-  if (!boardgame) {
-    return res.status(404).json({ error: "no such a board game" });
+  
+    const boardgame = await Boardgame.findByIdAndUpdate(
+      { _id: id },
+      {
+        ...req.body,
+      }
+    );
+  
+    if (!boardgame) {
+      return res.status(404).json({ error: "no such a board game" });
+    }
+    res.status(200).json(boardgame);
+  } catch (error) {
+    res.status(400).send({ error:error.message})
   }
-  res.status(200).json(boardgame);
 };
 //delete 
 const deleteBoardgame = async (req,res) => {

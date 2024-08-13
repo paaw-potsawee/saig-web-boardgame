@@ -1,10 +1,12 @@
 const express = require('express')
 const router = express.Router()
 const requireAuth = require('../middleware/requireAuth')
+const requireAuth2 = require('../middleware/requireAuth2')
 const {
     signup,
     login,
-    history
+    history,
+    getAllUser,
 } = require('../controller/userController')
 
 /**
@@ -152,6 +154,33 @@ const {
  *                  
  *      
  */
+
+/**
+ * @swagger
+ * /user/alluser:
+ *  get:
+ *      security:
+ *          - bearerAuth: []
+ *      summary: get all username for admin only
+ *      tags: [user]
+ *      responses:
+ *          200:
+ *              description: get all users list
+ *          400:
+ *              description: fail to load users list
+ *              content:
+ *                  application/json:
+ *                      shcema:
+ *                          $ref: '#/components/schemas/badrequest'
+ *          401:
+ *              description: unauthorized
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/badrequest'
+ *          500: 
+ *              description: internal server error   
+ */
 //sign up
 router.post('/signup', signup)
 
@@ -161,5 +190,7 @@ router.post('/login',login)
 //user history 
 router.get('/history',requireAuth(),history)
 
+//get all user info
+router.get('/alluser',requireAuth2('admin'), getAllUser)
 
 module.exports = router

@@ -10,6 +10,8 @@ import Signup from './pages/Signup'
 import EditBoardgame from './pages/admin/EditBoardgame.jsx'
 import EditRooms from './pages/admin/EditRooms.jsx'
 import AddBoardgame from './pages/admin/AddBoardgame.jsx'
+import AllUsers from './pages/admin/AllUsers.jsx'
+import Notfound from './pages/Notfound.jsx'
 
 function App() {
     const { user } = useAuthContext()
@@ -45,6 +47,14 @@ function App() {
                     <Route
                         path='/addboardgame'
                         element={(!!user && user.roll == 'admin') ? <AddBoardgame /> : <Homepage />}
+                    />
+                    <Route
+                        path='/allusers'
+                        element={(!!user && user.roll == 'admin') ? <AllUsers /> : <Homepage />}
+                    />
+                    <Route 
+                        path='*'
+                        element={<Notfound />}
                     />
                 </Route>
             </Routes>

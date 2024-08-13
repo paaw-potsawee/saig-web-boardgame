@@ -3,12 +3,14 @@ import { Link, useLocation } from 'react-router-dom'
 import axios from 'axios'
 import '../style/homepage.css'
 import { useAuthContext } from '../hooks/useAuthContext'
+import Footer from '../components/Footer'
 
 function Homepage() {
     const [listOfBoardgame, setListOfBoardgame] = useState([])
     const { user } = useAuthContext()
     const location = useLocation()
-
+    const { hash } = useLocation()
+    const [loading, setLoading] = useState(true)
     const getBoardgame = async () => {
         const [getSearch,searchinfo] = location.search.split('=')
         try {
@@ -24,18 +26,37 @@ function Homepage() {
             }
         } catch (error) {
             console.log(error)
+        }finally{
+            setLoading(false)
+            if(hash){
+                const element = document.getElementById(hash.substring(1))
+                if(element){
+                    const a = element.getBoundingClientRect().top + window.pageYOffset
+                    console.log(a)
+                    window.scrollTo({
+                        top:a,
+                        behavior:'smooth',
+                    })
+                }
+            }
         }
     }
     useEffect(() => {
         // console.log(location.search.slice(1))
         getBoardgame()
     }, [location])
+    if(loading){
+        return (<div>loading</div>)
+    }
 
     return (
+        <>
         <div className="homepage">
-            {!!user && user.roll == 'admin' && <div className='adminbtn'>
+            {!!user && user.roll == 'admin' && 
+                <div className='adminbtn'>
                     <Link to='editrooms' className='btn'>edit rooms</Link>
                     <Link to='addboardgame' className='btn'>add boardgame</Link>
+                    <Link to='allusers' className='btn'>all users</Link>
                 </div>}
             {!!location.search ? <div>
                 {listOfBoardgame.length > 0 ? <div>
@@ -81,8 +102,11 @@ function Homepage() {
                     }):<div>no boardgame currently available</div>}
                 </div>
             }
-
         </div>
+        <hr />
+        <Footer />
+        <div id="test"></div>
+        </>
     )
 
 }

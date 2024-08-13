@@ -1,0 +1,12 @@
+.notfound{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.notfound h1{
+    color:var(--font-color);
+}
+.notfound .link{
+    color:var(--blue-dark);
+}

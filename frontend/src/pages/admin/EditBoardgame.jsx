@@ -59,6 +59,7 @@ const EditBoardgame = () => {
                 boargameName.current.value = ''
             }
         } catch (error) {
+            toast.error(error.response.data.error)
             console.log(error)
         }
     }
@@ -85,6 +86,7 @@ const EditBoardgame = () => {
                 price.current.value = ''
             }
         } catch (error) {
+            toast.error(error.response.data.error)
             console.log(error)
         }
     }

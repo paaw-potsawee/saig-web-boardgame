@@ -30,6 +30,7 @@ const AddBoardgame = () => {
             boardgameName.current.value = ''
             price.current.value = ''
         } catch (error) {
+            toast.error(error.response.data.error)
             console.log(error)
         }
     }

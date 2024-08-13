@@ -44,8 +44,18 @@ const history = async(req,res) => {
     }
 }
 
+const getAllUser = async(req,res) => {
+  try{
+    const allUsers = await User.find({ roll:'user' }).select('username')
+    res.status(200).json({ allUsers })
+  }catch(error){
+    res.status(400).json({error:error.message})
+  }
+}
+
 module.exports = {
   signup,
   login,
   history,
+  getAllUser
 }
