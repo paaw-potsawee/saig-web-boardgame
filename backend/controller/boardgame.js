@@ -3,7 +3,7 @@ const { default: mongoose } = require("mongoose");
 
 //get all baordgames
 const getAllBoardgames = async (req, res) => {
-  const boardgames = await Boardgame.find({});
+  const boardgames = await res.paginatedResults;
   res.json(boardgames);
 };
 

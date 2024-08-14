@@ -7,6 +7,7 @@
     margin-top:-40px;
     background-color: var(--grey-light);
     align-items: center;
+    z-index:999;
   }
   /* nav bar that shown */
   .nav-show{

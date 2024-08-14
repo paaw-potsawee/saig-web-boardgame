@@ -2,7 +2,7 @@
 .homepage{
   width:100vw;
   box-sizing:border-box;
-  min-height: calc(100vh - 80px);
+  min-height: calc(100vh - 100px);
 }
 .boardgame{
   display:grid;
@@ -73,8 +73,35 @@
   background-color: var(--blue-dark);
   color:var(--grey);
 }
-
+.pagination{
+  display:flex;
+  flex-direction:row;
+  justify-content:center;
+  align-items:center;
+  gap:10px;
+  margin-top:10px;
+}
+.pagination .pagBtnContainer{
+  display: flex;
+  flex-direction:row;
+  gap:10px;
+}
+.pagination .currentPage{
+  background-color:var(--blue-dark);
+  width:30px;
+  text-align: center;
+  color:vaR(--grey);
+}
+.pagination button{
+  border:var(--blue-dark) solid 2px;
+  cursor:pointer;
+  width:30px;
+  color:var(--font-color);
+}
 @media (min-width: 750px){
+  .homepage{
+    min-height: calc(100vh - 110px);
+  }
   .boardgame{
     grid-template-columns: repeat(2,1fr);
   }

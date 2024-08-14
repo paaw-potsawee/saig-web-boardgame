@@ -9,6 +9,8 @@ const {
 } = require("../controller/boardgame.js");
 const requireAuth2 = require('../middleware/requireAuth2.js')
 const requireAuth = require('../middleware/requireAuth.js')
+const pagination = require('../middleware/pagination.js')
+const Boardgame = require("../models/Boardgames")
 
 /**
  * @swagger
@@ -236,7 +238,7 @@ const requireAuth = require('../middleware/requireAuth.js')
  *        description: internal server error
  */
 //get all baordgames
-router.get("/", getAllBoardgames);
+router.get("/", pagination(Boardgame), getAllBoardgames);
 
 //get one boardgame
 router.get("/:id", requireAuth(),getBoardgame);
