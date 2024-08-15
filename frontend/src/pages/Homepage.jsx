@@ -10,7 +10,6 @@ function Homepage() {
     const [nextPage, setNextPage] = useState([])
     const [previousPage, setPreviousPage] = useState([])
     const [currentPage, setCurrentPage] = useState(1)
-    // const [totalPage,setTotalPage] = useState(1)
     const { user } = useAuthContext()
     const location = useLocation()
     const { hash } = useLocation()
@@ -21,9 +20,9 @@ function Homepage() {
         let totalPage = 1
         try {
             if (getSearch == '?search') {
-                res = await axios.get(`http://localhost:3000/homepage?page=${currentPage}&limit=20&search=${searchinfo}`)
+                res = await axios.get(`http://localhost:3000/homepage?page=${currentPage}&limit=12&search=${searchinfo}`)
             } else {
-                res = await axios.get(`http://localhost:3000/homepage?page=${currentPage}&limit=20`)
+                res = await axios.get(`http://localhost:3000/homepage?page=${currentPage}&limit=12`)
             }
         } catch (error) {
             console.log(error)

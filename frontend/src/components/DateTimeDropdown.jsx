@@ -35,7 +35,6 @@ const DateTimeDropdown = ({ reserveGame, rooms, idGame }) => {
 
 
   useEffect(() => {
-    console.log(rooms)
     const dateOptions = generateDateOptions()
     setDateOption(dateOptions)
   }, [reserveGame])
@@ -50,13 +49,10 @@ const DateTimeDropdown = ({ reserveGame, rooms, idGame }) => {
         const check = reserveGame.map(reservation => {
           const [resDate, resTime] = reservation.split('T')
           const isoTime = new Date(resDate)
-          // console.log(resTime.slice(0,2)+"=="+time.getHours())
-          // console.log(isoTime.getDate()+" == "+ date.getDate())
           if (isoTime.getFullYear() == date.getFullYear()
             && isoTime.getMonth() == date.getMonth()
             && isoTime.getDate() == date.getDate()
             && resTime.slice(0, 2) == time.getHours()) {
-            console.log("bla")
             return true
           } else {
             return false
@@ -85,7 +81,6 @@ const DateTimeDropdown = ({ reserveGame, rooms, idGame }) => {
             date.getDate() == resDate &&
             hr == resHour
           ) {
-            console.log('heheh');
             return true
           }
           return false
@@ -99,8 +94,6 @@ const DateTimeDropdown = ({ reserveGame, rooms, idGame }) => {
   useEffect(() => {
     const a = new Date(selectedDate)
     a.setHours(selectedTime.slice(0, 2), 0, 0)
-    console.log(a)
-    console.log(selectedRoom)
   }, [selectedRoom])
   return (
     <div className='dropdown'>

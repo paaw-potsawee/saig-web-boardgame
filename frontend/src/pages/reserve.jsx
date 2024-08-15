@@ -28,7 +28,6 @@ const Reserve = () => {
         });
         setBoardgame(res.data);
         setReserveGame(res.data.reservation || [])
-        console.log('boardgame', res.data.reservation);
       } catch (err) {
         console.error(err);
       } finally {
@@ -49,7 +48,6 @@ const Reserve = () => {
           }
         })
         setRooms(roomsList.data)
-        console.log('room', rooms)
       } catch (err) {
         console.log(err)
       } finally {

@@ -21,7 +21,6 @@ const HandleReserve = ({ date, time, room, idGame }) => {
                     }
                 })
             console.log(res)
-            // alert(`successfully reserve ${res.data.reserveGame.boardgameName} at ${b.slice(0,10)} ${b.slice(11,19)}`)
             toast.success(`successfully reserve ${res.data.reserveGame.boardgameName} at ${b.slice(0,10)} ${b.slice(11,19)}`)
             navigate(`/`)
         } catch (error) {

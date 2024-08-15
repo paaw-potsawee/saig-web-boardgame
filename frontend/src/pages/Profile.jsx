@@ -27,8 +27,6 @@ const Profile = () => {
             })
     }, [])
     useEffect(() => {
-        console.log(findHistory(reserve))
-        console.log(findUpcoming(reserve))
         setHistory(findHistory(reserve))
         setUpcoming(findUpcoming(reserve))
     }, [reserve])
@@ -57,7 +55,7 @@ const Profile = () => {
             <h2>sawaddee {user.username}</h2>
             {reserve.length > 0 ?
                 <div className='reservation'>
-                    <h4>your upcoming event</h4>
+                    <h4>your upcoming events</h4>
                     <table className='upcoming'>
                         <thead>
                             <tr>
